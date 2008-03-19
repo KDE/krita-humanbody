@@ -46,7 +46,7 @@ void KisToolHumanBodyTool::deactivate()
 
 void KisToolHumanBodyTool::mousePressEvent(KoPointerEvent *event)
 {
-    m_selectedNode = m_humanBodyDecoration->humanBody()->nodeAt( m_canvas->viewConverter()->viewToDocument( event->pos()) );
+    m_selectedNode = m_humanBodyDecoration->humanBody()->nodeAt(event->point);
     if(m_selectedNode)
     {
         m_mode = MODE_NODEDRAGING;
@@ -60,7 +60,7 @@ void KisToolHumanBodyTool::mouseMoveEvent(KoPointerEvent *event)
     if( m_mode == MODE_NODEDRAGING)
     {
         Q_ASSERT(m_selectedNode);
-        m_selectedNode->setPosition( m_canvas->viewConverter()->viewToDocument( event->pos() ) );
+        m_selectedNode->setPosition( event->point);
         m_canvas->updateCanvas(); // TODO update only the relevant part of the canvas
     }
 }
