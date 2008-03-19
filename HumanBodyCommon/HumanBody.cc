@@ -17,6 +17,8 @@
 
 #include "HumanBody.h"
 
+#include <math.h>
+
 #include <QMap>
 #include <QPointF>
 
@@ -105,6 +107,24 @@ void HumanBody::paint(QPainter& painter, const KoViewConverter &converter)
     {
         link->paint(painter, converter);
     }
+}
+
+double norm2(const QPointF& p)
+{
+    return sqrt(p.x() * p.x() + p.y() * p.y() );
+}
+
+HumanBodyNode* HumanBody::nodeAt( const QPointF& point )
+{
+    foreach( HumanBodyNode* node, d->nodes.values())
+    {
+        QPointF pos = node->position();
+        if( norm2(point - pos) < 2 )
+        {
+            return node;
+        }
+    }
+    return 0;
 }
 
 HumanBody::~HumanBody()

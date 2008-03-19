@@ -8,7 +8,7 @@ set(kritahumanbodyview_PART_SRCS humanbodyview.cc )
 
 kde4_add_plugin(kritahumanbodyview ${kritahumanbodyview_PART_SRCS})
 
-target_link_libraries(kritahumanbodyview ${KRITA_UI_LIBS} KritaHumanBodyCommon)
+target_link_libraries(kritahumanbodyview ${KRITA_UI_LIBS} ${FLAKE_LIBS} KritaHumanBodyCommon)
 
 install(TARGETS kritahumanbodyview  DESTINATION ${PLUGIN_INSTALL_DIR})
 

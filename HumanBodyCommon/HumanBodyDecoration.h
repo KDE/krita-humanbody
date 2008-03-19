@@ -21,10 +21,13 @@
 #include "kis_canvas_decoration.h"
 #include "KritaHumanBodyCommon_export.h"
 
+class HumanBody;
+
 class KRITAHUMANBODYCOMMON_EXPORT HumanBodyDecoration : public KisCanvasDecoration {
     public:
         HumanBodyDecoration(KisView2 * parent);
         ~HumanBodyDecoration();
+        HumanBody* humanBody();
     protected:
         virtual void drawDecoration(QPainter& gc, const QRect& area, const KoViewConverter &converter);
     private:

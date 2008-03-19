@@ -23,7 +23,9 @@ class QPointF;
 class QString;
 class KoViewConverter;
 
-class HumanBodyNode {
+#include "KritaHumanBodyCommon_export.h"
+
+class KRITAHUMANBODYCOMMON_EXPORT HumanBodyNode {
     public:
         HumanBodyNode(const QString& id, const QString& name );
         ~HumanBodyNode();

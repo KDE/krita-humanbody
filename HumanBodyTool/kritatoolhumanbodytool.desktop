@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=HumanBodyTool
+X-KDE-ServiceTypes=Krita/Tool
+Type=Service
+X-KDE-Library=kritatoolhumanbodytool
+X-Krita-Version=3

@@ -17,15 +17,16 @@
 
 #include "HumanBodyDecoration.h"
 
+#include <klocale.h>
+
 #include "HumanBody.h"
-#include <QPainter>
 
 struct HumanBodyDecoration::Private
 {
     HumanBody* humanBody;
 };
 
-HumanBodyDecoration::HumanBodyDecoration(KisView2 * parent) : KisCanvasDecoration(parent), d(new Private)
+HumanBodyDecoration::HumanBodyDecoration(KisView2 * parent) : KisCanvasDecoration("humanBody", i18n("Human body"),parent), d(new Private)
 {
     d->humanBody = new HumanBody();
 }
@@ -38,6 +39,10 @@ HumanBodyDecoration::~HumanBodyDecoration()
 void HumanBodyDecoration::drawDecoration(QPainter& gc, const QRect& area, const KoViewConverter &converter)
 {
     Q_UNUSED(area);
-    Q_UNUSED(converter);
     d->humanBody->paint(gc, converter);
+}
+
+HumanBody* HumanBodyDecoration::humanBody()
+{
+    return d->humanBody;
 }

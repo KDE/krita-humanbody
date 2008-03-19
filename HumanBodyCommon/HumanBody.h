@@ -24,7 +24,9 @@ class QPainter;
 class HumanBodyNode;
 class KoViewConverter;
 
-class HumanBody {
+#include "KritaHumanBodyCommon_export.h"
+
+class KRITAHUMANBODYCOMMON_EXPORT HumanBody {
     public:
         HumanBody();
         ~HumanBody();
@@ -32,6 +34,8 @@ class HumanBody {
         
         void translate( const QPointF& translate);
         void paint(QPainter& painter, const KoViewConverter &converter);
+    public:
+        HumanBodyNode* nodeAt( const QPointF& point );
     private:
         void createNode( const QString& id, const QString& name, const QPointF& pos);
         void createLink( const QString& id, const QString& name, const QString& nodeId1, const QString& nodeId2);
