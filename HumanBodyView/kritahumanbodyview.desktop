@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=HumanBodyView
+Name[pt_BR]=%{NOME_APLICATIVO}
+Name[x-test]=xxHumanBodyViewxx
+Comment=HumanBodyView
+Comment[pt_BR]=%{NOME_APLICATIVO}
+Comment[x-test]=xxHumanBodyViewxx
+X-KDE-ServiceTypes=Krita/ViewPlugin
+Type=Service
+X-KDE-Library=kritahumanbodyview
+X-Krita-Version=3

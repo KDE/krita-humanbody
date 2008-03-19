@@ -1,0 +1,3 @@
+add_subdirectory(HumanBodyCommon)
+add_subdirectory(HumanBodyView)
+# add_subdirectory(HumanBodyTool)
