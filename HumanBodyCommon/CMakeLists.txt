@@ -2,8 +2,10 @@
 set(kritahumanbodycommon_PART_SRCS
     HumanBodyDecoration.cc
     HumanBody.cc
+    HumanBodyLink.cc
+    HumanBodyMuscle.cc
     HumanBodyNode.cc
-    HumanBodyLink.cc )
+     )
 
 
 kde4_add_library(KritaHumanBodyCommon SHARED ${kritahumanbodycommon_PART_SRCS})

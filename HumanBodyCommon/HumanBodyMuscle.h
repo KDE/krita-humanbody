@@ -15,35 +15,19 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef _HUMAN_BODY_H_
-#define _HUMAN_BODY_H_
+#ifndef _HUMAN_BODY_MUSCLE_H_
+#define _HUMAN_BODY_MUSCLE_H_
 
-class QString;
-class QPointF;
-class QPainter;
-class HumanBodyNode;
-class KoViewConverter;
-class HumanBodyLink;
+#include "HumanBodyLink.h"
 
-#include "KritaHumanBodyCommon_export.h"
-
-class KRITAHUMANBODYCOMMON_EXPORT HumanBody {
+class HumanBodyMuscle : public HumanBodyLink {
     public:
-        HumanBody();
-        ~HumanBody();
-    public:
-        
-        void translate( const QPointF& translate);
-        void paint(QPainter& painter, const KoViewConverter &converter);
-    public:
-        HumanBodyNode* nodeAt( const QPointF& point );
-    private:
-        void createNode( const QString& id, const QString& name, const QPointF& pos);
-        template< class _T_  >
-        void createLink( const QString& id, const QString& name, const QString& nodeId1, const QString& nodeId2);
+        HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2 );
+        virtual ~HumanBodyMuscle();
+        virtual void paint(QPainter& painter, const KoViewConverter &converter);
     private:
         struct Private;
-        Private* const d;
+        Private * const d;
 };
 
 #endif

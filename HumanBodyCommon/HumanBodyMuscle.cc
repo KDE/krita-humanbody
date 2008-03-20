@@ -15,49 +15,36 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "HumanBodyLink.h"
+#include "HumanBodyMuscle.h"
+
+#include <math.h>
 
 #include <QPainter>
-
 #include <KoViewConverter.h>
 
 #include "HumanBodyNode.h"
 
-struct HumanBodyLink::Private {
-    HumanBodyNode* node1;
-    HumanBodyNode* node2;
-    QString id;
-    QString name;
+#include "Utils.h"
+
+struct HumanBodyMuscle::Private {
+    
 };
 
-HumanBodyLink::HumanBodyLink( const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2 ) : d(new Private)
+HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2 ) : HumanBodyLink(id, name, node1, node2), d(new Private)
 {
-    d->node1 = node1;
-    d->node2 = node2;
-    d->id = id;
-    d->name = name;
 }
 
-HumanBodyLink::~HumanBodyLink()
+HumanBodyMuscle::~HumanBodyMuscle()
 {
     delete d;
 }
 
-const QString& HumanBodyLink::id() const
+void HumanBodyMuscle::paint(QPainter& painter, const KoViewConverter &converter)
 {
-    return d->id;
+    QPointF p1 = converter.documentToView( node1()->position() );
+    QPointF p2 = converter.documentToView( node2()->position() );
+    painter.translate( p1 );
+    painter.rotate( angle(p1, p2) * 180 / M_PI );
+    painter.drawRect( QRectF( QPointF(6,-3), QPointF(norm2(p2-p1) - 6, 3) ) );
 }
 
-void HumanBodyLink::paint(QPainter& painter, const KoViewConverter &converter)
-{
-    painter.drawLine( converter.documentToView( d->node1->position() ), converter.documentToView( d->node2->position() ) );
-}
-
-HumanBodyNode* HumanBodyLink::node1()
-{
-    return d->node1;
-}
-HumanBodyNode* HumanBodyLink::node2()
-{
-    return d->node2;
-}

@@ -15,26 +15,13 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef _HUMAN_BODY_LINK_H_
-#define _HUMAN_BODY_LINK_H_
+inline double angle( const QPointF& p1, const QPointF& p2)
+{
+    return atan2( p2.y() - p1.y(), p2.x() - p1.x());
+}
 
-class QString;
-class HumanBodyNode;
-class QPainter;
-class KoViewConverter;
+inline double norm2(const QPointF& p)
+{
+    return sqrt(p.x() * p.x() + p.y() * p.y() );
+}
 
-class HumanBodyLink {
-    public:
-        HumanBodyLink( const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2 );
-        const QString& id() const;
-        virtual ~HumanBodyLink();
-        virtual void paint(QPainter& painter, const KoViewConverter &converter);
-    protected:
-        HumanBodyNode* node1();
-        HumanBodyNode* node2();
-    private:
-        struct Private;
-        Private* const d;
-};
-
-#endif
