@@ -25,20 +25,24 @@
 
 #include <klocale.h>
 
+#include "HumanBodyHead.h"
 #include "HumanBodyLink.h"
 #include "HumanBodyMuscle.h"
 #include "HumanBodyNode.h"
+#include "HumanBodyParameters.h"
 
 #include "Utils.h"
 
 struct HumanBody::Private {
     QMap<QString, HumanBodyNode*> nodes;
     QMap<QString, HumanBodyLink*> links;
+    HumanBodyParameters parameters;
 };
 
+template< class _T_  >
 void HumanBody::createNode( const QString& id, const QString& name, const QPointF& pos)
 {
-    HumanBodyNode* node = new HumanBodyNode(id, name);
+    _T_ * node = new _T_ (id, name, this);
     node->setPosition( pos );
     d->nodes[ node->id() ] = node;
 }
@@ -53,25 +57,43 @@ void HumanBody::createLink( const QString& id, const QString& name, const QStrin
 HumanBody::HumanBody() : d(new Private)
 {
     // Create human nodes
-    createNode("head", i18n("Head"), QPointF( 0, 0 ) );
-    createNode("neck", i18n("Neck"), QPointF( 0, 10 ) );
-    createNode("leftShoulder", i18n("Left shoulder"), QPointF( 10, 10 ) );
-    createNode("leftElbow", i18n("Left elbow"), QPointF(10, 20 ) );
-    createNode("leftWrist", i18n("Left wrist"), QPointF(10,30) ); 
-    createNode("leftHand", i18n("Left hand"), QPointF(11,30) ); 
-    createNode("rightShoulder", i18n("Right shoulder"), QPointF( -10, 10 ) );
-    createNode("rightElbow", i18n("Right elbow"), QPointF(-10, 20 ) );
-    createNode("rightWrist", i18n("Right wrist"), QPointF(-10,30) ); 
-    createNode("rightHand", i18n("Right hand"), QPointF(-11,30) ); 
-    createNode("pelvis", i18n("Pelvis"), QPointF(0,30) );
-    createNode("leftCheek", i18n("Left cheek"), QPointF(10,30) );
-    createNode("leftKnee", i18n("Left knee"), QPointF(10,40) );
-    createNode("leftAnkle", i18n("Left ankle"), QPointF(10,50) );
-    createNode("leftFoot", i18n("Left foot"), QPointF(11,50) );
-    createNode("rightCheek", i18n("Right cheek"), QPointF(-10,30) );
-    createNode("rightKnee", i18n("Right knee"), QPointF(-10,40) );
-    createNode("rightAnkle", i18n("Right ankle"), QPointF(-10,50) );
-    createNode("rightFoot", i18n("Right foot"), QPointF(-11,50) );
+    createNode<HumanBodyHead>("head", i18n("Head"), QPointF( 0, d->parameters.referenceSize() /4 ) );
+    createNode<HumanBodyNode>("neck", i18n("Neck"), QPointF( 0, d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftShoulder", i18n("Left shoulder"),
+                              QPointF( d->parameters.referenceSize(), d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftElbow", i18n("Left elbow"),
+                              QPointF( d->parameters.referenceSize(), 2.5 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftWrist", i18n("Left wrist"),
+                              QPointF( d->parameters.referenceSize(), 4 * d->parameters.referenceSize()) ); 
+    createNode<HumanBodyNode>("leftHand", i18n("Left hand"),
+                              QPointF( d->parameters.referenceSize() + 1, 4 * d->parameters.referenceSize()) ); 
+    createNode<HumanBodyNode>("rightShoulder", i18n("Right shoulder"),
+                              QPointF( -10, d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("rightElbow", i18n("Right elbow"),
+                              QPointF(-d->parameters.referenceSize(), 2.5 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("rightWrist", i18n("Right wrist"),
+                              QPointF(-d->parameters.referenceSize(), 4 * d->parameters.referenceSize() ) ); 
+    createNode<HumanBodyNode>("rightHand", i18n("Right hand"),
+                              QPointF(-d->parameters.referenceSize() - 1, 4 * d->parameters.referenceSize() ) ); 
+    
+    createNode<HumanBodyNode>("pelvis", i18n("Pelvis"),
+                              QPointF(0, 3 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftCheek", i18n("Left cheek"),
+                              QPointF( d->parameters.headProportion() * d->parameters.referenceSize(), 4 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftKnee", i18n("Left knee"),
+                              QPointF( d->parameters.headProportion() * d->parameters.referenceSize(), 6 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftAnkle", i18n("Left ankle"),
+                              QPointF( d->parameters.headProportion() * d->parameters.referenceSize(), 8 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("leftFoot", i18n("Left foot"),
+                              QPointF( d->parameters.headProportion() * d->parameters.referenceSize() + 1, 8 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("rightCheek", i18n("Right cheek"),
+                              QPointF(-d->parameters.headProportion() * d->parameters.referenceSize(), 4 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("rightKnee", i18n("Right knee"),
+                              QPointF(-d->parameters.headProportion() * d->parameters.referenceSize(), 6 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("rightAnkle", i18n("Right ankle"),
+                              QPointF(-d->parameters.headProportion() * d->parameters.referenceSize(), 8 * d->parameters.referenceSize() ) );
+    createNode<HumanBodyNode>("rightFoot", i18n("Right foot"),
+                              QPointF(-d->parameters.headProportion() * d->parameters.referenceSize() - 1, 8 * d->parameters.referenceSize() ) );
 
     // Create human links (muscles and so)
     createLink<HumanBodyLink>("neck", i18n("Neck"), "neck", "head");
@@ -136,3 +158,7 @@ HumanBody::~HumanBody()
     delete d;
 }
 
+HumanBodyParameters* HumanBody::parameters()
+{
+    return &d->parameters;
+}

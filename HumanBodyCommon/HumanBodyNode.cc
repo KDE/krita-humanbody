@@ -27,12 +27,14 @@ struct HumanBodyNode::Private {
     QString id;
     QString name;
     QPointF position;
+    HumanBody* parent;
 };
 
-HumanBodyNode::HumanBodyNode(const QString& id, const QString& name ) : d(new Private)
+HumanBodyNode::HumanBodyNode(const QString& _id, const QString& _name, HumanBody* _parent  ) : d(new Private)
 {
-    d->id = id;
-    d->name = name;
+    d->id = _id;
+    d->name = _name;
+    d->parent = _parent;
 }
 
 HumanBodyNode::~HumanBodyNode()
@@ -58,3 +60,9 @@ void HumanBodyNode::paint(QPainter& gc, const KoViewConverter &converter)
     QRectF rect = QRectF( d->position.x() - 1, d->position.y() - 1, 2, 2);
     gc.drawEllipse( converter.documentToView( rect ) );
 }
+
+HumanBody* HumanBodyNode::humanBody()
+{
+    return d->parent;
+}
+

@@ -15,31 +15,20 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef _HUMAN_BODY_NODE_H_
-#define _HUMAN_BODY_NODE_H_
+#ifndef _HUMAN_BODY_HEAD_H_
+#define _HUMAN_BODY_HEAD_H_
 
-class QPainter;
-class QPointF;
-class QString;
-class KoViewConverter;
-class HumanBody;
+#include "HumanBodyNode.h"
 
-#include "KritaHumanBodyCommon_export.h"
-
-class KRITAHUMANBODYCOMMON_EXPORT HumanBodyNode {
+class HumanBodyHead : public HumanBodyNode {
     public:
-        HumanBodyNode(const QString& _id, const QString& _name, HumanBody* _parent );
-        virtual ~HumanBodyNode();
-        const QString& id() const;
+        HumanBodyHead(const QString& id, const QString& name, HumanBody* _parent );
+        virtual ~HumanBodyHead();
         virtual void paint(QPainter& painter, const KoViewConverter &converter);
-    public:
-        QPointF position() const;
-        void setPosition(const QPointF& );
-    protected:
-        HumanBody* humanBody();
     private:
         struct Private;
         Private* const d;
 };
+
 
 #endif
