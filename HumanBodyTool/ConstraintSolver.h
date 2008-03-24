@@ -15,40 +15,25 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "HumanBodyDecoration.h"
+#ifndef _CONSTRAINT_SOLVER_H_
+#define _CONSTRAINT_SOLVER_H_
 
-#include <klocale.h>
+class HumanBody;
+class HumanBodyNode;
+class QPointF;
 
-#include "HumanBody.h"
-
-struct HumanBodyDecoration::Private
-{
-    HumanBody* humanBody;
+class ConstraintSolver {
+    public:
+        ConstraintSolver();
+        ~ConstraintSolver();
+        void setConstraintLength(bool v);
+    public:
+        void moveNodeTo(HumanBody* body, HumanBodyNode* node, const QPointF& point);
+    private:
+        QPointF findBestNewPosition( const QPointF& posN1, const QPointF& posN2, double l);
+    private:
+        struct Private;
+        Private* const d;
 };
 
-HumanBodyDecoration::HumanBodyDecoration(KisView2 * parent) : KisCanvasDecoration("humanBody", i18n("Human body"),parent), d(new Private)
-{
-    d->humanBody = new HumanBody();
-}
-
-HumanBodyDecoration::~HumanBodyDecoration()
-{
-    delete d;
-}
-
-void HumanBodyDecoration::drawDecoration(QPainter& gc, const QRect& area, const KoViewConverter &converter)
-{
-    Q_UNUSED(area);
-    d->humanBody->paint(gc, converter);
-}
-
-HumanBody* HumanBodyDecoration::humanBody()
-{
-    return d->humanBody;
-}
-
-void HumanBodyDecoration::setHumanBody( HumanBody* hb)
-{
-    delete d->humanBody;
-    d->humanBody = hb;
-}
+#endif

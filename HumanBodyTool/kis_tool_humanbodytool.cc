@@ -16,12 +16,19 @@
 #include "HumanBodyDecoration.h"
 #include "HumanBodyNode.h"
 
+#include "ConstraintSolver.h"
+
+#include "ui_HumanBodyToolOptions.h"
+
 KisToolHumanBodyTool::KisToolHumanBodyTool(KoCanvasBase * canvas)
     : KisTool(canvas, KisCursor::arrowCursor()), m_canvas( dynamic_cast<KisCanvas2*>(canvas) ), m_selectedNode(0)
 {
     Q_ASSERT(m_canvas);
     setObjectName("tool_humanbodytool");
     m_mode = MODE_NOTHING;
+    m_uiHumanBodyToolOptions = 0;
+    m_widget = 0;
+    m_constraintSolver = new ConstraintSolver;
 }
 
 KisToolHumanBodyTool::~KisToolHumanBodyTool()
@@ -44,6 +51,17 @@ void KisToolHumanBodyTool::deactivate()
     KisTool::deactivate();
 }
 
+void KisToolHumanBodyTool::resetHumanBody()
+{
+    m_humanBodyDecoration->setHumanBody( new HumanBody );
+    m_canvas->updateCanvas(); // TODO update only the relevant part of the canvas
+}
+
+void KisToolHumanBodyTool::constraintLenght(int state)
+{
+    m_constraintSolver->setConstraintLength( state == Qt::Checked );
+}
+
 void KisToolHumanBodyTool::mousePressEvent(KoPointerEvent *event)
 {
     m_selectedNode = m_humanBodyDecoration->humanBody()->nodeAt(event->point);
@@ -60,7 +78,10 @@ void KisToolHumanBodyTool::mouseMoveEvent(KoPointerEvent *event)
     if( m_mode == MODE_NODEDRAGING)
     {
         Q_ASSERT(m_selectedNode);
-        m_selectedNode->setPosition( event->point);
+//         m_selectedNode->setPosition( event->point);
+        m_constraintSolver->moveNodeTo( m_humanBodyDecoration->humanBody(),
+                                        m_selectedNode,
+                                        event->point );
         m_canvas->updateCanvas(); // TODO update only the relevant part of the canvas
     }
 }
@@ -81,16 +102,19 @@ void KisToolHumanBodyTool::paint(QPainter& gc, const KoViewConverter &converter)
     Q_UNUSED(converter);
 }
 
-// Uncomment if you have a configuration widget
-// QWidget* KisToolHumanBodyTool::createOptionWidget()
-// {
-//     return 0;
-// }
-//
-// QWidget* KisToolHumanBodyTool::optionWidget()
-// {
-//         return 0;
-// }
+QWidget* KisToolHumanBodyTool::createOptionWidget()
+{
+    m_widget = new QWidget;
+    m_uiHumanBodyToolOptions = new Ui_HumanBodyToolOptions;
+    m_uiHumanBodyToolOptions->setupUi(m_widget);
+    connect(m_uiHumanBodyToolOptions->reset, SIGNAL(released()), SLOT(resetHumanBody()));
+    connect(m_uiHumanBodyToolOptions->keepLength, SIGNAL(stateChanged(int)), SLOT(constraintLenght(int)));
+    return m_widget;
+}
 
+QWidget* KisToolHumanBodyTool::optionWidget()
+{
+    return m_widget;
+}
 
 #include "kis_tool_humanbodytool.moc"

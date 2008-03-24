@@ -18,13 +18,18 @@
 #ifndef _HUMAN_BODY_H_
 #define _HUMAN_BODY_H_
 
+#include <QList>
+
 class QString;
 class QPointF;
 class QPainter;
-class HumanBodyNode;
+
 class KoViewConverter;
+
 class HumanBodyLink;
+class HumanBodyNode;
 class HumanBodyParameters;
+class HumanBodyPelvis;
 
 #include "KritaHumanBodyCommon_export.h"
 
@@ -39,11 +44,13 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBody {
     public:
         HumanBodyNode* nodeAt( const QPointF& point );
         HumanBodyParameters* parameters();
+        QList<HumanBodyLink*> linksForNode( const HumanBodyNode* );
+        HumanBodyPelvis* pelvis();
     private:
         template< class _T_  >
-        void createNode( const QString& id, const QString& name, const QPointF& pos);
+        _T_* createNode( const QString& id, const QString& name, const QPointF& pos);
         template< class _T_  >
-        void createLink( const QString& id, const QString& name, const QString& nodeId1, const QString& nodeId2);
+        _T_* createLink( const QString& id, const QString& name, const QString& nodeId1, const QString& nodeId2);
     private:
         struct Private;
         Private* const d;

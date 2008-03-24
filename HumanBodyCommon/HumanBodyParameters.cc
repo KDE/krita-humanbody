@@ -45,3 +45,8 @@ double HumanBodyParameters::headProportion() const
 {
     return 0.8;
 }
+
+int HumanBodyParameters::articulationSize() const
+{
+    return 2;
+}

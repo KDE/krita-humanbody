@@ -7,6 +7,8 @@
 class HumanBodyDecoration;
 class HumanBodyNode;
 class KisCanvas2;
+class Ui_HumanBodyToolOptions;
+class ConstraintSolver;
 
 class KisToolHumanBodyTool : public KisTool {
     Q_OBJECT
@@ -23,13 +25,14 @@ public:
     virtual void mouseMoveEvent(KoPointerEvent *event);
     virtual void mouseReleaseEvent(KoPointerEvent *event);
 
-// Uncomment if you have a configuration widget
-//     QWidget* createOptionWidget();
-//     virtual QWidget* optionWidget();
+    QWidget* createOptionWidget();
+    virtual QWidget* optionWidget();
 
 public slots:
     virtual void activate(bool temp = false);
     void deactivate();
+    void resetHumanBody();
+    void constraintLenght(int state);
 
 protected:
     
@@ -42,6 +45,9 @@ protected:
     HumanBodyDecoration* m_humanBodyDecoration;
     Mode m_mode;
     HumanBodyNode* m_selectedNode;
+    Ui_HumanBodyToolOptions* m_uiHumanBodyToolOptions;
+    QWidget* m_widget;
+    ConstraintSolver* m_constraintSolver;
 };
 
 

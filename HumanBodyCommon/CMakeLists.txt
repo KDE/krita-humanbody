@@ -2,11 +2,14 @@
 set(kritahumanbodycommon_PART_SRCS
     HumanBodyDecoration.cc
     HumanBody.cc
+    HumanBodyFoot.cc
+    HumanBodyHand.cc
     HumanBodyHead.cc
     HumanBodyLink.cc
     HumanBodyMuscle.cc
     HumanBodyNode.cc
     HumanBodyParameters.cc
+    HumanBodyPelvis.cc
      )
 
 

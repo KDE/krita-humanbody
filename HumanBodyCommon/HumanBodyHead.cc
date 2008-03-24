@@ -44,7 +44,6 @@ void HumanBodyHead::paint(QPainter& _painter, const KoViewConverter &_converter)
     HumanBodyNode::paint(_painter, _converter);
     int headSize = humanBody()->parameters()->headSize();
     double proportion = humanBody()->parameters()->headProportion();
-    QRectF rect = QRectF( position().x() - 0.8 * headSize * 0.5, position().y() - headSize * 0.5, headSize * 0.8, headSize);
+    QRectF rect = QRectF( position().x() - proportion * headSize * 0.5, position().y() - headSize * 0.5, headSize * proportion, headSize);
     _painter.drawEllipse( _converter.documentToView( rect ) );
 }
-

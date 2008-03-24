@@ -1,0 +1,69 @@
+--- 
+KalculusFile: true
+Version: 3
+Engine: Kalculus::Engines::Yacas
+Lines: 
+- Text: Equation of first circle
+  Type: TextLine
+- Answer: 
+    Text: l1^2==u^2+v^2;
+    IsErr: false
+  Calcul: l1^2 == u^2 + v^2
+  Type: CalculLine
+- Text: Equation of second circle
+  Type: TextLine
+- Answer: 
+    Text: l2^2==(u+tx)^2+(v+ty)^2;
+    IsErr: false
+  Calcul: l2^2 == (u+tx)^2 + (v + ty)^2
+  Type: CalculLine
+- Answer: 
+    Text: l2^2==u^2+2*tx*u+tx^2+v^2+2*ty*v+ty^2;
+    IsErr: false
+  Calcul: l2^2 == Expand((u+tx)^2 + (v + ty)^2)
+  Type: CalculLine
+- Text: Substitute u^2 + v^2 by l1^2
+  Type: TextLine
+- Answer: 
+    Text: l2^2==l1^2+2*tx*u+tx^2+2*ty*v+ty^2;
+    IsErr: false
+  Calcul: l2^2== l1^2 +2*tx*u+tx^2+2*ty*v+ty^2;
+  Type: CalculLine
+- Text: Extract v
+  Type: TextLine
+- Answer: 
+    Text: "{v==(l2^2-(l1^2+2*tx*u+tx^2+ty^2))/(2*ty)};"
+    IsErr: false
+  Calcul: vsol := Solve(l2^2== l1^2 +2*tx*u+tx^2+2*ty*v+ty^2, v)
+  Type: CalculLine
+- Text: Substitute v in the first equation
+  Type: TextLine
+- Answer: 
+    Text: l1^2==u^2+((l2^2-(l1^2+2*tx*u+tx^2+ty^2))/(2*ty))^2;
+    IsErr: false
+  Calcul: l1^2 == u^2 +((l2^2-(l1^2+2*tx*u+tx^2+ty^2))/(2*ty))^2
+  Type: CalculLine
+- Text: Extract u
+  Type: TextLine
+- Answer: 
+    Text: "{u==((-(l2^2-(l1^2+tx^2+ty^2))*2*tx)/(2*ty)^2-(2*tx*(l2^2-(l1^2+tx^2+ty^2)))/(2*ty)^2+Sqrt(((2*tx*(l2^2-(l1^2+tx^2+ty^2)))/(2*ty)^2-(-(l2^2-(l1^2+tx^2+ty^2))*2*tx)/(2*ty)^2)^2-(-4)*((2*tx)^2/(2*ty)^2+1)*(l1^2-(l2^2-(l1^2+tx^2+ty^2))^2/(2*ty)^2)))/((-2)*((2*tx)^2/(2*ty)^2+1)),u==((-(l2^2-(l1^2+tx^2+ty^2))*2*tx)/(2*ty)^2-(2*tx*(l2^2-(l1^2+tx^2+ty^2)))/(2*ty)^2-Sqrt(((2*tx*(l2^2-(l1^2+tx^2+ty^2)))/(2*ty)^2-(-(l2^2-(l1^2+tx^2+ty^2))*2*tx)/(2*ty)^2)^2-(-4)*((2*tx)^2/(2*ty)^2+1)*(l1^2-(l2^2-(l1^2+tx^2+ty^2))^2/(2*ty)^2)))/((-2)*((2*tx)^2/(2*ty)^2+1))};"
+    IsErr: false
+  Calcul: sol := Solve( l1^2 == u^2 +((l2^2-(l1^2+2*tx*u+tx^2+ty^2))/(2*ty))^2, u )
+  Type: CalculLine
+- Answer: 
+    Text: "\"u == ( (  - ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) )  * 2 * tx)  / pow(2 * ty, 2) - ( 2 * tx * ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) ) )  / pow(2 * ty, 2) + sqrt(pow(( 2 * tx * ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) ) )  / pow(2 * ty, 2) - (  - ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) )  * 2 * tx)  / pow(2 * ty, 2), 2) - -4 * ( pow(2 * tx, 2) / pow(2 * ty, 2) + 1)  * ( pow(l1, 2) - pow(pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) , 2) / pow(2 * ty, 2)) ))  / ( -2 * ( pow(2 * tx, 2) / pow(2 * ty, 2) + 1) ) \";"
+    IsErr: false
+  Calcul: CForm(sol[1])
+  Type: CalculLine
+- Answer: 
+    Text: "\"u == ( (  - ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) )  * 2 * tx)  / pow(2 * ty, 2) - ( 2 * tx * ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) ) )  / pow(2 * ty, 2) - sqrt(pow(( 2 * tx * ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) ) )  / pow(2 * ty, 2) - (  - ( pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) )  * 2 * tx)  / pow(2 * ty, 2), 2) - -4 * ( pow(2 * tx, 2) / pow(2 * ty, 2) + 1)  * ( pow(l1, 2) - pow(pow(l2, 2) - ( pow(l1, 2) + pow(tx, 2) + pow(ty, 2)) , 2) / pow(2 * ty, 2)) ))  / ( -2 * ( pow(2 * tx, 2) / pow(2 * ty, 2) + 1) ) \";"
+    IsErr: false
+  Calcul: CForm(sol[2])
+  Type: CalculLine
+- Answer: 
+    Text: "\"v == ( pow(l2, 2) - ( pow(l1, 2) + 2 * tx * u + pow(tx, 2) + pow(ty, 2)) )  / ( 2 * ty) \";"
+    IsErr: false
+  Calcul: CForm(vsol[1])
+  Type: CalculLine
+- Calcul: ""
+  Type: CalculLine

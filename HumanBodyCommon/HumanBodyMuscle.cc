@@ -22,15 +22,16 @@
 #include <QPainter>
 #include <KoViewConverter.h>
 
+#include "HumanBody.h"
 #include "HumanBodyNode.h"
+#include "HumanBodyParameters.h"
 
 #include "Utils.h"
 
 struct HumanBodyMuscle::Private {
-    
 };
 
-HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2 ) : HumanBodyLink(id, name, node1, node2), d(new Private)
+HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent ) : HumanBodyLink(id, name, node1, node2, _parent), d(new Private)
 {
 }
 
@@ -41,10 +42,16 @@ HumanBodyMuscle::~HumanBodyMuscle()
 
 void HumanBodyMuscle::paint(QPainter& painter, const KoViewConverter &converter)
 {
-    QPointF p1 = converter.documentToView( node1()->position() );
-    QPointF p2 = converter.documentToView( node2()->position() );
-    painter.translate( p1 );
+    QPointF p1 = node1()->position();
+    QPointF p2 = node2()->position();
+    painter.translate( converter.documentToView( p1 ) );
     painter.rotate( angle(p1, p2) * 180 / M_PI );
-    painter.drawRect( QRectF( QPointF(6,-3), QPointF(norm2(p2-p1) - 6, 3) ) );
+    painter.drawRect(
+        converter.documentToView(
+            QRectF( QPointF(
+                          humanBody()->parameters()->articulationSize(),
+                        - humanBody()->parameters()->articulationSize() * 0.5),
+                    QPointF(norm2(p2-p1) - humanBody()->parameters()->articulationSize(),
+                          humanBody()->parameters()->articulationSize() * 0.5) ) ) );
 }
 

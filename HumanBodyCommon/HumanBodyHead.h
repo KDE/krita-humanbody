@@ -30,5 +30,4 @@ class HumanBodyHead : public HumanBodyNode {
         Private* const d;
 };
 
-
 #endif

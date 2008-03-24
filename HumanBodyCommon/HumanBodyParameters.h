@@ -25,6 +25,7 @@ class HumanBodyParameters {
         int referenceSize() const;
         int headSize() const;
         double headProportion() const;
+        int articulationSize() const;
     private:
         struct Private;
         Private* const d;

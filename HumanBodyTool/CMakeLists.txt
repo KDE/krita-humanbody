@@ -3,7 +3,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../HumanBodyCommon)
 set(kritatoolhumanbodytool_PART_SRCS
     tool_humanbodytool.cc
     kis_tool_humanbodytool.cc
+    ConstraintSolver.cc
     )
+
+kde4_add_ui_files(kritatoolhumanbodytool_PART_SRCS HumanBodyToolOptions.ui )
 
 kde4_add_plugin(kritatoolhumanbodytool ${kritatoolhumanbodytool_PART_SRCS})
 

@@ -15,40 +15,29 @@
  *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "HumanBodyDecoration.h"
+#ifndef _HUMAN_BODY_PELVIS_H_
+#define _HUMAN_BODY_PELVIS_H_
 
-#include <klocale.h>
+class HumanBody;
+class HumanBodyNode;
+class QPainter;
+class KoViewConverter;
 
-#include "HumanBody.h"
+#include "KritaHumanBodyCommon_export.h"
 
-struct HumanBodyDecoration::Private
-{
-    HumanBody* humanBody;
+class KRITAHUMANBODYCOMMON_EXPORT HumanBodyPelvis {
+    public:
+        HumanBodyPelvis( HumanBody* body, HumanBodyNode* pelvisTop, HumanBodyNode* leftCheek, HumanBodyNode* rightCheek);
+        ~HumanBodyPelvis();
+        HumanBodyNode* pelvisTop();
+        HumanBodyNode* leftCheek();
+        HumanBodyNode* rightCheek();
+        bool contains( HumanBodyNode* node);
+        void paint(QPainter& painter, const KoViewConverter &converter);
+    private:
+        struct Private;
+        Private* const d;
 };
 
-HumanBodyDecoration::HumanBodyDecoration(KisView2 * parent) : KisCanvasDecoration("humanBody", i18n("Human body"),parent), d(new Private)
-{
-    d->humanBody = new HumanBody();
-}
 
-HumanBodyDecoration::~HumanBodyDecoration()
-{
-    delete d;
-}
-
-void HumanBodyDecoration::drawDecoration(QPainter& gc, const QRect& area, const KoViewConverter &converter)
-{
-    Q_UNUSED(area);
-    d->humanBody->paint(gc, converter);
-}
-
-HumanBody* HumanBodyDecoration::humanBody()
-{
-    return d->humanBody;
-}
-
-void HumanBodyDecoration::setHumanBody( HumanBody* hb)
-{
-    delete d->humanBody;
-    d->humanBody = hb;
-}
+#endif

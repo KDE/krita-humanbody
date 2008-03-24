@@ -22,16 +22,23 @@ class QString;
 class HumanBodyNode;
 class QPainter;
 class KoViewConverter;
+class HumanBody;
 
-class HumanBodyLink {
+#include "KritaHumanBodyCommon_export.h"
+
+class KRITAHUMANBODYCOMMON_EXPORT HumanBodyLink {
     public:
-        HumanBodyLink( const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2 );
+        HumanBodyLink( const QString& id, const QString& name, HumanBodyNode* _node1, HumanBodyNode* _node2 , HumanBody* _parent );
         const QString& id() const;
         virtual ~HumanBodyLink();
         virtual void paint(QPainter& painter, const KoViewConverter &converter);
-    protected:
+        void setVisible(bool v);
+    public:
         HumanBodyNode* node1();
         HumanBodyNode* node2();
+        double length() const;
+    protected:
+        HumanBody* humanBody();
     private:
         struct Private;
         Private* const d;

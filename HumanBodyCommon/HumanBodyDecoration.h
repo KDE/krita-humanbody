@@ -28,6 +28,10 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBodyDecoration : public KisCanvasDecorati
         HumanBodyDecoration(KisView2 * parent);
         ~HumanBodyDecoration();
         HumanBody* humanBody();
+        /**
+         * Set a new human body and takes the ownership of the pointer.s
+         */
+        void setHumanBody( HumanBody* hb);
     protected:
         virtual void drawDecoration(QPainter& gc, const QRect& area, const KoViewConverter &converter);
     private:

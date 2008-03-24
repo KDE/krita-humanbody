@@ -65,4 +65,3 @@ HumanBody* HumanBodyNode::humanBody()
 {
     return d->parent;
 }
-
