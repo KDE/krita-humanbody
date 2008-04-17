@@ -62,11 +62,11 @@ _T_* HumanBody::createLink( const QString& id, const QString& name, const QStrin
     return link;
 }
 
-HumanBodyMuscle* HumanBody::createMuscle( const QString& _id, const QString& _name, const QString& _nodeId1, const QString& _nodeId2, double _proportion)
+HumanBodyMuscle* HumanBody::createMuscle( const QString& _id, const QString& _name, const QString& _nodeId1, const QString& _nodeId2, double _proportion1, double _proportion2 )
 {
     Q_ASSERT(d->nodes[_nodeId1]);
     Q_ASSERT(d->nodes[_nodeId2]);
-    HumanBodyMuscle* link = new HumanBodyMuscle(_id, _name, d->nodes[_nodeId1], d->nodes[_nodeId2], this, _proportion);
+    HumanBodyMuscle* link = new HumanBodyMuscle(_id, _name, d->nodes[_nodeId1], d->nodes[_nodeId2], this, _proportion1, _proportion2 );
     d->links[ link->id() ] = link;
     return link;
 }
@@ -116,22 +116,22 @@ HumanBody::HumanBody() : d(new Private)
     // Create human links (muscles and so)
     createLink<HumanBodyLink>("neck", i18n("Neck"), "neck", "head");
     createLink<HumanBodyLink>("leftShoulder", i18n("Left shoulder"), "leftShoulder", "neck");
-    createMuscle("leftForeArm", i18n("Left forearm"), "leftShoulder", "leftElbow", d->parameters.armProportion());
-    createMuscle("leftArm", i18n("Left arm"), "leftElbow", "leftWrist", d->parameters.armProportion());
+    createMuscle("leftForeArm", i18n("Left forearm"), "leftShoulder", "leftElbow", d->parameters.armProportion(), d->parameters.armProportion());
+    createMuscle("leftArm", i18n("Left arm"), "leftElbow", "leftWrist", d->parameters.armProportion(), d->parameters.armProportion());
     createLink<HumanBodyHand>("leftHand", i18n("Left hand"), "leftWrist", "leftHand");
     createLink<HumanBodyLink>("rightShoulder", i18n("Right shoulder"), "rightShoulder", "neck");
-    createMuscle("rightForeArm", i18n("Right forearm"), "rightShoulder", "rightElbow", d->parameters.armProportion());
-    createMuscle("rightArm", i18n("Right arm"), "rightElbow", "rightWrist", d->parameters.armProportion());
+    createMuscle("rightForeArm", i18n("Right forearm"), "rightShoulder", "rightElbow", d->parameters.armProportion(), d->parameters.armProportion());
+    createMuscle("rightArm", i18n("Right arm"), "rightElbow", "rightWrist", d->parameters.armProportion(), d->parameters.armProportion());
     createLink<HumanBodyHand>("rightHand", i18n("Right hand"), "rightWrist", "rightHand");
     
     createLink<HumanBodyLink>("trunk", i18n("Trunk"), "neck", "pelvisTop");
     createLink<HumanBodyLink>("pelvisToLeftCheck", i18n("Pelvis"), "leftCheek", "pelvisTop")->setVisible(false);
-    createMuscle("leftThigh", i18n("Left thigh"), "leftKnee", "leftCheek", d->parameters.thighProportion());
-    createMuscle("leftLeg", i18n("Left leg"), "leftKnee", "leftAnkle", d->parameters.legProportion());
+    createMuscle("leftThigh", i18n("Left thigh"), "leftCheek", "leftKnee", d->parameters.thighProportion(), d->parameters.legProportion());
+    createMuscle("leftLeg", i18n("Left leg"), "leftKnee", "leftAnkle", d->parameters.legProportion(), 1.0);
     createLink<HumanBodyLink>("pelvisToRightCheck", i18n("Pelvis"), "rightCheek", "pelvisTop")->setVisible(false);
     createLink<HumanBodyFoot>("leftFoot", i18n("Left foot"), "leftAnkle", "leftFoot");
-    createMuscle("rightThigh", i18n("Right thigh"), "rightKnee", "rightCheek", d->parameters.thighProportion());
-    createMuscle("rightLeg", i18n("Right leg"), "rightKnee", "rightAnkle", d->parameters.legProportion());
+    createMuscle("rightThigh", i18n("Right thigh"), "rightCheek", "rightKnee",  d->parameters.thighProportion(), d->parameters.legProportion());
+    createMuscle("rightLeg", i18n("Right leg"), "rightKnee", "rightAnkle", d->parameters.legProportion(), 1.0);
     createLink<HumanBodyLink>("leftCheeckToRightCheck", i18n("Pelvis"), "rightCheek", "leftCheek")->setVisible(false);
     createLink<HumanBodyFoot>("rightFoot", i18n("Right foot"), "rightAnkle", "rightFoot");
     

@@ -29,12 +29,14 @@
 #include "Utils.h"
 
 struct HumanBodyMuscle::Private {
-  double m_proportion;
+  double m_proportion1;
+  double m_proportion2;
 };
 
-HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent, double _proportion ) : HumanBodyLink(id, name, node1, node2, _parent), d(new Private)
+HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent, double _proportion1, double _proportion2 ) : HumanBodyLink(id, name, node1, node2, _parent), d(new Private)
 {
-  d->m_proportion = _proportion;
+  d->m_proportion1 = _proportion1;
+  d->m_proportion2 = _proportion2;
 }
 
 HumanBodyMuscle::~HumanBodyMuscle()
@@ -42,19 +44,34 @@ HumanBodyMuscle::~HumanBodyMuscle()
     delete d;
 }
 
-void HumanBodyMuscle::paint(QPainter& painter, const KoViewConverter &converter)
+void HumanBodyMuscle::paint(QPainter& _painter, const KoViewConverter &_converter)
 {
     QPointF p1 = node1()->position();
     QPointF p2 = node2()->position();
-    painter.translate( converter.documentToView( p1 ) );
-    painter.rotate( angle(p1, p2) * 180 / M_PI );
-    double proportion = d->m_proportion * 0.5;
-    painter.drawRect(
+    _painter.translate( _converter.documentToView( p1 ) );
+    _painter.rotate( angle(p1, p2) * 180 / M_PI );
+    double proportion1 = d->m_proportion1 * 0.5;
+    double proportion2 = d->m_proportion2 * 0.5;
+    QPolygonF polygon;
+    double muscleSize = norm2(p2-p1) - humanBody()->parameters()->articulationSize() * 0.25;
+    polygon.push_back( _converter.documentToView(
+                       QPointF(   humanBody()->parameters()->articulationSize() * 0.25,
+                                - humanBody()->parameters()->articulationSize() * proportion1 ) ) );
+    polygon.push_back( _converter.documentToView(
+                       QPointF( muscleSize, - humanBody()->parameters()->articulationSize() * proportion2 ) ) );
+    polygon.push_back( _converter.documentToView(
+                       QPointF( muscleSize,  humanBody()->parameters()->articulationSize() * proportion2 ) ) );
+    polygon.push_back( _converter.documentToView(
+                       QPointF(   humanBody()->parameters()->articulationSize() * 0.25,
+                                  humanBody()->parameters()->articulationSize() * proportion1 ) ) );
+    _painter.drawPolygon( polygon );
+    
+/*    painter.drawRect(
         converter.documentToView(
             QRectF( QPointF(
                           humanBody()->parameters()->articulationSize() * 0.25,
-                        - humanBody()->parameters()->articulationSize() * proportion),
+                        - humanBody()->parameters()->articulationSize() * proportion1),
                     QPointF(norm2(p2-p1) - humanBody()->parameters()->articulationSize() * 0.25,
-                          humanBody()->parameters()->articulationSize() * proportion) ) ) );
+                          humanBody()->parameters()->articulationSize() * proportion1) ) ) );*/
 }
 
