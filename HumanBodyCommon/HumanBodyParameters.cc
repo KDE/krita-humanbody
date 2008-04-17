@@ -23,7 +23,7 @@ struct HumanBodyParameters::Private {
 
 HumanBodyParameters::HumanBodyParameters() : d(new Private)
 {
-    d->referenceSize = 10;
+    d->referenceSize = 12;
 }
 
 HumanBodyParameters::~HumanBodyParameters()
@@ -48,5 +48,20 @@ double HumanBodyParameters::headProportion() const
 
 int HumanBodyParameters::articulationSize() const
 {
-    return 2;
+    return 4;
+}
+
+double HumanBodyParameters::armProportion() const
+{
+  return 1.0;
+}
+
+double HumanBodyParameters::thighProportion() const
+{
+  return 2.0;
+}
+
+double HumanBodyParameters::legProportion() const
+{
+  return 1.5;
 }

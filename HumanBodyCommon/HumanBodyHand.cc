@@ -49,14 +49,14 @@ void HumanBodyHand::paint(QPainter& _painter, const KoViewConverter &_converter)
     QPolygonF polygon;
     polygon.push_back( _converter.documentToView(
                        QPointF( - humanBody()->parameters()->articulationSize() * 0.5,
-                                  humanBody()->parameters()->articulationSize() * 0.5 ) ) );
+                                  humanBody()->parameters()->articulationSize() * 0.25 ) ) );
     polygon.push_back( _converter.documentToView(
                        QPointF( - humanBody()->parameters()->articulationSize(), handSize ) ) );
     polygon.push_back( _converter.documentToView(
                        QPointF(   humanBody()->parameters()->articulationSize(), handSize ) ) );
     polygon.push_back( _converter.documentToView(
                        QPointF(   humanBody()->parameters()->articulationSize() * 0.5,
-                                  humanBody()->parameters()->articulationSize() * 0.5 ) ) );
+                                  humanBody()->parameters()->articulationSize() * 0.25 ) ) );
     _painter.drawPolygon( polygon );
 }
 

@@ -23,6 +23,9 @@
 
 #include <KoViewConverter.h>
 
+#include "HumanBody.h"
+#include "HumanBodyParameters.h"
+
 struct HumanBodyNode::Private {
     QString id;
     QString name;
@@ -57,7 +60,9 @@ const QString& HumanBodyNode::id() const
 
 void HumanBodyNode::paint(QPainter& gc, const KoViewConverter &converter)
 {
-    QRectF rect = QRectF( d->position.x() - 1, d->position.y() - 1, 2, 2);
+    int size = humanBody()->parameters()->articulationSize();
+    double halfSize = size / 2.0;
+    QRectF rect = QRectF( d->position.x() - halfSize, d->position.y() - halfSize, size, size);
     gc.drawEllipse( converter.documentToView( rect ) );
 }
 

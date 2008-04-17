@@ -69,6 +69,13 @@ void HumanBodyPelvis::paint(QPainter& painter, const KoViewConverter &converter)
 {
     Q_UNUSED(painter);
     Q_UNUSED(converter);
+    QPointF l2r = d->leftCheek->position() - d->rightCheek->position();
+    l2r /= norm2( l2r );
+    QPointF l2rAS = l2r * d->humanBody->parameters()->articulationSize();
+    QPointF leftHoriPt = d->leftCheek->position() - l2rAS;
+    QPointF rightHoriPt = d->rightCheek->position() + l2rAS;
+    painter.drawLine( converter.documentToView( leftHoriPt ),
+                      converter.documentToView( rightHoriPt ) );
 #if 0
     QPointF l2r = d->leftCheek->position() - d->rightCheek->position();
     l2r /= norm2( l2r );

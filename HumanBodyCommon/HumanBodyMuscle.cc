@@ -29,10 +29,12 @@
 #include "Utils.h"
 
 struct HumanBodyMuscle::Private {
+  double m_proportion;
 };
 
-HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent ) : HumanBodyLink(id, name, node1, node2, _parent), d(new Private)
+HumanBodyMuscle::HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent, double _proportion ) : HumanBodyLink(id, name, node1, node2, _parent), d(new Private)
 {
+  d->m_proportion = _proportion;
 }
 
 HumanBodyMuscle::~HumanBodyMuscle()
@@ -46,12 +48,13 @@ void HumanBodyMuscle::paint(QPainter& painter, const KoViewConverter &converter)
     QPointF p2 = node2()->position();
     painter.translate( converter.documentToView( p1 ) );
     painter.rotate( angle(p1, p2) * 180 / M_PI );
+    double proportion = d->m_proportion * 0.5;
     painter.drawRect(
         converter.documentToView(
             QRectF( QPointF(
-                          humanBody()->parameters()->articulationSize(),
-                        - humanBody()->parameters()->articulationSize() * 0.5),
-                    QPointF(norm2(p2-p1) - humanBody()->parameters()->articulationSize(),
-                          humanBody()->parameters()->articulationSize() * 0.5) ) ) );
+                          humanBody()->parameters()->articulationSize() * 0.25,
+                        - humanBody()->parameters()->articulationSize() * proportion),
+                    QPointF(norm2(p2-p1) - humanBody()->parameters()->articulationSize() * 0.25,
+                          humanBody()->parameters()->articulationSize() * proportion) ) ) );
 }
 

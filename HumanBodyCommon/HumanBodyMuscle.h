@@ -22,7 +22,7 @@
 
 class HumanBodyMuscle : public HumanBodyLink {
     public:
-        HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent  );
+        HumanBodyMuscle(const QString& id, const QString& name, HumanBodyNode* node1, HumanBodyNode* node2, HumanBody* _parent, double _proportion );
         virtual ~HumanBodyMuscle();
         virtual void paint(QPainter& painter, const KoViewConverter &converter);
     private:

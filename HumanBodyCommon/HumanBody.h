@@ -30,6 +30,7 @@ class HumanBodyLink;
 class HumanBodyNode;
 class HumanBodyParameters;
 class HumanBodyPelvis;
+class HumanBodyMuscle;
 
 #include "KritaHumanBodyCommon_export.h"
 
@@ -51,6 +52,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBody {
         _T_* createNode( const QString& id, const QString& name, const QPointF& pos);
         template< class _T_  >
         _T_* createLink( const QString& id, const QString& name, const QString& nodeId1, const QString& nodeId2);
+        HumanBodyMuscle* createMuscle( const QString& _id, const QString& _name, const QString& _nodeId1, const QString& _nodeId2, double _proportion);
     private:
         struct Private;
         Private* const d;
