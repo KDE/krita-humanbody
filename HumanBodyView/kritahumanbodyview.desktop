@@ -1,9 +1,19 @@
 [Desktop Entry]
 Name=HumanBodyView
-Name[pt_BR]=%{NOME_APLICATIVO}
+Name[el]=Προβολή ανθρώπινου σώματος
+Name[et]=Inimkeha vaade
+Name[km]=ទិដ្ឋភាព​ខ្លួន​មនុស្ស
+Name[pt]=Vista do Corpo Humano
+Name[pt_BR]=Vista do Corpo Humano
+Name[sv]=Människokroppsvy
 Name[x-test]=xxHumanBodyViewxx
 Comment=HumanBodyView
-Comment[pt_BR]=%{NOME_APLICATIVO}
+Comment[el]=Προβολή ανθρώπινου σώματος
+Comment[et]=Inimkeha vaade
+Comment[km]=ទិដ្ឋភាព​ខ្លួន​មនុស្ស
+Comment[pt]=Vista do Corpo Humano
+Comment[pt_BR]=Vista do Corpo Humano
+Comment[sv]=Människokroppsvy
 Comment[x-test]=xxHumanBodyViewxx
 X-KDE-ServiceTypes=Krita/ViewPlugin
 Type=Service

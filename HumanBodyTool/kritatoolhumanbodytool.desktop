@@ -1,5 +1,13 @@
 [Desktop Entry]
 Name=HumanBodyTool
+Name[el]=Εργαλείο ανθρώπινου σώματος
+Name[et]=Inimkeha tööriist
+Name[km]=ឧបករណ៍​ខ្លួន​មនុស្ស
+Name[pt]=Ferramenta do Corpo Humano
+Name[pt_BR]=Ferramenta do Corpo Humano
+Name[sv]=Människokroppsverktyg
+Name[uk]=Інструмент "Тіло людини"
+Name[x-test]=xxHumanBodyToolxx
 X-KDE-ServiceTypes=Krita/Tool
 Type=Service
 X-KDE-Library=kritatoolhumanbodytool
