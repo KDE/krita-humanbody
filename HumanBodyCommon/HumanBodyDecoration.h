@@ -18,7 +18,7 @@
 #ifndef _HUMAN_BODY_DECORATOR_H_
 #define _HUMAN_BODY_DECORATOR_H_
 
-#include "kis_canvas_decoration.h"
+#include "canvas/kis_canvas_decoration.h"
 #include "KritaHumanBodyCommon_export.h"
 
 class HumanBody;
@@ -33,7 +33,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBodyDecoration : public KisCanvasDecorati
          */
         void setHumanBody( HumanBody* hb);
     protected:
-        virtual void drawDecoration(QPainter& gc, const QRect& area, const KoViewConverter &converter);
+        virtual void drawDecoration(QPainter& gc, const QPoint & documentOffset, const QRect& area, const KoViewConverter &converter);
     private:
         struct Private;
         Private* const d;
