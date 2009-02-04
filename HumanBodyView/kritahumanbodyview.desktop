@@ -19,6 +19,7 @@ Comment[nl]=View op het menselijk lichaam
 Comment[pt]=Vista do Corpo Humano
 Comment[pt_BR]=Vista do Corpo Humano
 Comment[sv]=Människokroppsvy
+Comment[tr]=İnsan bedeni görünümü
 Comment[x-test]=xxHumanBodyViewxx
 X-KDE-ServiceTypes=Krita/ViewPlugin
 Type=Service
