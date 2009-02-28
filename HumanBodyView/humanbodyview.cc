@@ -21,15 +21,14 @@
 
 #include <kactioncollection.h>
 #include <kcomponentdata.h>
-#include <kis_debug.h>
 #include <kgenericfactory.h>
 #include <klocale.h>
 #include <kstandarddirs.h>
 
-#include "canvas/kis_canvas2.h"
-#include "kis_config.h"
-#include "kis_cursor.h"
-#include "kis_global.h"
+#include "kis_canvas2.h"
+// #include "kis_config.h"
+// #include "kis_cursor.h"
+// #include "kis_global.h"
 #include "kis_types.h"
 #include "kis_view2.h"
 

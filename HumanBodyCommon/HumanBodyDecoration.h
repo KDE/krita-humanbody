@@ -18,7 +18,7 @@
 #ifndef _HUMAN_BODY_DECORATOR_H_
 #define _HUMAN_BODY_DECORATOR_H_
 
-#include "canvas/kis_canvas_decoration.h"
+#include "kis_canvas_decoration.h"
 #include "KritaHumanBodyCommon_export.h"
 
 class HumanBody;

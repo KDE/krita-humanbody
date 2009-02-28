@@ -8,7 +8,7 @@
 #include <KoViewConverter.h>
 #include <KoPointerEvent.h>
 
-#include <canvas/kis_canvas2.h>
+#include <kis_canvas2.h>
 #include <kis_cursor.h>
 #include <kis_view2.h>
 

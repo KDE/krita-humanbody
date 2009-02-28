@@ -11,7 +11,6 @@
 #include <kis_debug.h>
 #include <kgenericfactory.h>
 
-#include <kis_global.h>
 #include <kis_types.h>
 #include <KoToolRegistry.h>
 

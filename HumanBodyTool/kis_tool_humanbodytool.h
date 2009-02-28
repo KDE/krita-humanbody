@@ -1,7 +1,7 @@
 #ifndef _KIS_TOOL_HUMANBODYTOOL_H_
 #define _KIS_TOOL_HUMANBODYTOOL_H_
 
-#include <tool/kis_tool.h>
+#include <kis_tool.h>
 #include <KoToolFactory.h>
 
 class HumanBodyDecoration;
