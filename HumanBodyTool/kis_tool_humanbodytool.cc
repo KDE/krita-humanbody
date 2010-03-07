@@ -35,10 +35,10 @@ KisToolHumanBodyTool::~KisToolHumanBodyTool()
 {
 }
 
-void KisToolHumanBodyTool::activate(bool )
+void KisToolHumanBodyTool::activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes)
 {
     // Add code here to initialize your tool when it got activated
-    KisTool::activate();
+    KisTool::activate(toolActivation, shapes);
     m_humanBodyDecoration = dynamic_cast<HumanBodyDecoration*>(m_canvas->decoration("humanBody"));
     kDebug() << m_humanBodyDecoration << m_canvas->decoration("humanBody");
     Q_ASSERT(m_humanBodyDecoration);

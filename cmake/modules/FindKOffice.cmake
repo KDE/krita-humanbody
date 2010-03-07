@@ -22,6 +22,8 @@ FIND_LIBRARY(PIGMENT_LIBRARY NAMES pigmentcms
 FIND_PATH(KOFFICE_INCLUDE_DIR NAMES kofficeversion.h
           PATHS
           ${INCLUDE_INSTALL_DIR}
+          $ENV{KDEDIR}/include
+          ${KDE4PREFIX}/include
           /usr/include
           /usr/local/include
             )

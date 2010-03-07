@@ -1,8 +1,8 @@
 #ifndef _KIS_TOOL_HUMANBODYTOOL_H_
 #define _KIS_TOOL_HUMANBODYTOOL_H_
 
+#include <KoToolFactoryBase.h>
 #include <kis_tool.h>
-#include <KoToolFactory.h>
 
 class HumanBodyDecoration;
 class HumanBodyNode;
@@ -29,7 +29,7 @@ public:
     virtual QWidget* optionWidget();
 
 public slots:
-    virtual void activate(bool temp = false);
+    void activate(ToolActivation toolActivation, const QSet<KoShape*> &shapes);
     void deactivate();
     void resetHumanBody();
     void constraintLenght(int state);
@@ -51,10 +51,10 @@ protected:
 };
 
 
-class KisToolHumanBodyToolFactory : public KoToolFactory {
+class KisToolHumanBodyToolFactory : public KoToolFactoryBase {
 public:
-    KisToolHumanBodyToolFactory(QObject *parent, const QStringList&)
-        : KoToolFactory(parent, "KisToolHumanBodyTool", i18n( "Human body" ))
+    KisToolHumanBodyToolFactory(QObject *parent)
+        : KoToolFactoryBase(parent, "KisToolHumanBodyTool")
         {
             setToolTip( i18n( "Human body editor tool" ) );
             setToolType( TOOL_TYPE_VIEW );
@@ -65,7 +65,7 @@ public:
 
     virtual ~KisToolHumanBodyToolFactory() {}
 
-    virtual KoTool * createTool(KoCanvasBase * canvas) {
+    virtual KoToolBase * createTool(KoCanvasBase * canvas) {
         return new KisToolHumanBodyTool(canvas);
     }
 

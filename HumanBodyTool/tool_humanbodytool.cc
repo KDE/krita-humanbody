@@ -29,7 +29,7 @@ HumanBodyToolPlugin::HumanBodyToolPlugin(QObject *parent, const QStringList &)
     setComponentData(HumanBodyToolFactory::componentData());
 
     KoToolRegistry * r = KoToolRegistry::instance();
-    r->add(new KisToolHumanBodyToolFactory(r, QStringList()));
+    r->add(new KisToolHumanBodyToolFactory(r));
 }
 
 HumanBodyToolPlugin::~HumanBodyToolPlugin()
