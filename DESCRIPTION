@@ -1,0 +1,7 @@
+Name: Human Body
+Version: 0.8.82
+KritaVersion: 2.1.8x
+ShortDescription: Display a human body guide on the canvas
+Screenshots: screenshots/HumanBody1.jpg
+LongDescription:
+This extension allows to manipulate a skeleton of an human body on Krita's canvas to serve as a guide when drawing characters.
