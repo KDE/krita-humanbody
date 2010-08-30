@@ -25,6 +25,7 @@
 #include <HumanBodyNode.h>
 #include <HumanBodyParameters.h>
 #include "Utils.h"
+#include <kis_coordinates_converter.h>
 
 struct HumanBodyPelvis::Private
 {
@@ -65,7 +66,7 @@ HumanBodyNode* HumanBodyPelvis::rightCheek()
     return d->rightCheek;
 }
 
-void HumanBodyPelvis::paint(QPainter& painter, const KoViewConverter &converter)
+void HumanBodyPelvis::paint(QPainter& painter, const KisCoordinatesConverter* converter)
 {
     Q_UNUSED(painter);
     Q_UNUSED(converter);
@@ -74,8 +75,8 @@ void HumanBodyPelvis::paint(QPainter& painter, const KoViewConverter &converter)
     QPointF l2rAS = l2r * d->humanBody->parameters()->articulationSize();
     QPointF leftHoriPt = d->leftCheek->position() - l2rAS;
     QPointF rightHoriPt = d->rightCheek->position() + l2rAS;
-    painter.drawLine( converter.documentToView( leftHoriPt ),
-                      converter.documentToView( rightHoriPt ) );
+    painter.drawLine( converter->documentToWidget( leftHoriPt ),
+                      converter->documentToWidget( rightHoriPt ) );
 #if 0
     QPointF l2r = d->leftCheek->position() - d->rightCheek->position();
     l2r /= norm2( l2r );

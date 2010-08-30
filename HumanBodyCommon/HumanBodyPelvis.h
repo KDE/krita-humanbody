@@ -21,7 +21,7 @@
 class HumanBody;
 class HumanBodyNode;
 class QPainter;
-class KoViewConverter;
+class KisCoordinatesConverter;
 
 #include "KritaHumanBodyCommon_export.h"
 
@@ -33,7 +33,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBodyPelvis {
         HumanBodyNode* leftCheek();
         HumanBodyNode* rightCheek();
         bool contains( HumanBodyNode* node);
-        void paint(QPainter& painter, const KoViewConverter &converter);
+        void paint(QPainter& painter, const KisCoordinatesConverter* converter);
     private:
         struct Private;
         Private* const d;

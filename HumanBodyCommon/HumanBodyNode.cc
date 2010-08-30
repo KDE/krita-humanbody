@@ -25,6 +25,7 @@
 
 #include "HumanBody.h"
 #include "HumanBodyParameters.h"
+#include <kis_coordinates_converter.h>
 
 struct HumanBodyNode::Private {
     QString id;
@@ -58,12 +59,12 @@ const QString& HumanBodyNode::id() const
     return d->id;
 }
 
-void HumanBodyNode::paint(QPainter& gc, const KoViewConverter &converter)
+void HumanBodyNode::paint(QPainter& gc, const KisCoordinatesConverter* converter)
 {
     int size = humanBody()->parameters()->articulationSize();
     double halfSize = size / 2.0;
     QRectF rect = QRectF( d->position.x() - halfSize, d->position.y() - halfSize, size, size);
-    gc.drawEllipse( converter.documentToView( rect ) );
+    gc.drawEllipse( converter->documentToWidget( rect ) );
 }
 
 HumanBody* HumanBodyNode::humanBody()

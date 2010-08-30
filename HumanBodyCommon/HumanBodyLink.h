@@ -18,6 +18,7 @@
 #ifndef _HUMAN_BODY_LINK_H_
 #define _HUMAN_BODY_LINK_H_
 
+class KisCoordinatesConverter;
 class QString;
 class HumanBodyNode;
 class QPainter;
@@ -31,7 +32,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBodyLink {
         HumanBodyLink( const QString& id, const QString& name, HumanBodyNode* _node1, HumanBodyNode* _node2 , HumanBody* _parent );
         const QString& id() const;
         virtual ~HumanBodyLink();
-        virtual void paint(QPainter& painter, const KoViewConverter &converter);
+        virtual void paint(QPainter& painter, const KisCoordinatesConverter* converter);
         void setVisible(bool v);
     public:
         HumanBodyNode* node1();

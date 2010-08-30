@@ -19,7 +19,7 @@
 
 #include <QPainter>
 
-#include <KoViewConverter.h>
+#include <kis_coordinates_converter.h>
 
 #include "HumanBody.h"
 #include "HumanBodyParameters.h"
@@ -39,11 +39,11 @@ HumanBodyHead::~HumanBodyHead()
     delete d;
 }
 
-void HumanBodyHead::paint(QPainter& _painter, const KoViewConverter &_converter)
+void HumanBodyHead::paint(QPainter& _painter, const KisCoordinatesConverter* _converter)
 {
     HumanBodyNode::paint(_painter, _converter);
     int headSize = humanBody()->parameters()->headSize();
     double proportion = humanBody()->parameters()->headProportion();
     QRectF rect = QRectF( position().x() - proportion * headSize * 0.5, position().y() - headSize * 0.5, headSize * proportion, headSize);
-    _painter.drawEllipse( _converter.documentToView( rect ) );
+    _painter.drawEllipse( _converter->documentToWidget( rect ) );
 }

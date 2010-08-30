@@ -23,6 +23,7 @@ class QPointF;
 class QString;
 class KoViewConverter;
 class HumanBody;
+class KisCoordinatesConverter;
 
 #include "KritaHumanBodyCommon_export.h"
 
@@ -31,7 +32,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBodyNode {
         HumanBodyNode(const QString& _id, const QString& _name, HumanBody* _parent );
         virtual ~HumanBodyNode();
         const QString& id() const;
-        virtual void paint(QPainter& painter, const KoViewConverter &converter);
+        virtual void paint(QPainter& painter, const KisCoordinatesConverter* converter);
     public:
         QPointF position() const;
         void setPosition(const QPointF& );

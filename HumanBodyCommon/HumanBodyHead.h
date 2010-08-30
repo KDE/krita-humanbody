@@ -24,7 +24,7 @@ class HumanBodyHead : public HumanBodyNode {
     public:
         HumanBodyHead(const QString& id, const QString& name, HumanBody* _parent );
         virtual ~HumanBodyHead();
-        virtual void paint(QPainter& painter, const KoViewConverter &converter);
+        virtual void paint(QPainter& _painter, const KisCoordinatesConverter* _converter);
     private:
         struct Private;
         Private* const d;

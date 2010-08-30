@@ -27,6 +27,7 @@
 #include "HumanBodyParameters.h"
 
 #include "Utils.h"
+#include <kis_coordinates_converter.h>
 
 struct HumanBodyMuscle::Private {
   double m_proportion1;
@@ -44,24 +45,24 @@ HumanBodyMuscle::~HumanBodyMuscle()
     delete d;
 }
 
-void HumanBodyMuscle::paint(QPainter& _painter, const KoViewConverter &_converter)
+void HumanBodyMuscle::paint(QPainter& _painter, const KisCoordinatesConverter* _converter)
 {
     QPointF p1 = node1()->position();
     QPointF p2 = node2()->position();
-    _painter.translate( _converter.documentToView( p1 ) );
+    _painter.translate( _converter->documentToWidget( p1 ) );
     _painter.rotate( angle(p1, p2) * 180 / M_PI );
     double proportion1 = d->m_proportion1 * 0.5;
     double proportion2 = d->m_proportion2 * 0.5;
     QPolygonF polygon;
     double muscleSize = norm2(p2-p1) - humanBody()->parameters()->articulationSize() * 0.25;
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF(   humanBody()->parameters()->articulationSize() * 0.25,
                                 - humanBody()->parameters()->articulationSize() * proportion1 ) ) );
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF( muscleSize, - humanBody()->parameters()->articulationSize() * proportion2 ) ) );
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF( muscleSize,  humanBody()->parameters()->articulationSize() * proportion2 ) ) );
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF(   humanBody()->parameters()->articulationSize() * 0.25,
                                   humanBody()->parameters()->articulationSize() * proportion1 ) ) );
     _painter.drawPolygon( polygon );

@@ -24,7 +24,7 @@ class HumanBodyHand : public HumanBodyLink {
     public:
         HumanBodyHand(const QString& id, const QString& name, HumanBodyNode* _node1, HumanBodyNode* _node2 , HumanBody* _parent );
         virtual ~HumanBodyHand();
-        virtual void paint(QPainter& painter, const KoViewConverter &converter);
+        virtual void paint(QPainter& _painter, const KisCoordinatesConverter* _converter);
     private:
         struct Private;
         Private* const d;

@@ -33,7 +33,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBodyDecoration : public KisCanvasDecorati
          */
         void setHumanBody( HumanBody* hb);
     protected:
-        virtual void drawDecoration(QPainter& gc, const QPoint & documentOffset, const QRect& area, const KoViewConverter &converter);
+        virtual void drawDecoration(QPainter& gc, const QRectF& updateArea, const KisCoordinatesConverter* converter);
     private:
         struct Private;
         Private* const d;

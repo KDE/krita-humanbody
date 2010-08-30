@@ -24,6 +24,7 @@ class QString;
 class QPointF;
 class QPainter;
 
+class KisCoordinatesConverter;
 class KoViewConverter;
 
 class HumanBodyLink;
@@ -41,7 +42,7 @@ class KRITAHUMANBODYCOMMON_EXPORT HumanBody {
     public:
         
         void translate( const QPointF& translate);
-        void paint(QPainter& painter, const KoViewConverter &converter);
+        void paint(QPainter& painter, const KisCoordinatesConverter* converter);
     public:
         HumanBodyNode* nodeAt( const QPointF& point );
         HumanBodyParameters* parameters();

@@ -24,7 +24,7 @@ class HumanBodyFoot : public HumanBodyLink {
     public:
         HumanBodyFoot(const QString& id, const QString& name, HumanBodyNode* _node1, HumanBodyNode* _node2 , HumanBody* _parent );
         virtual ~HumanBodyFoot();
-        virtual void paint(QPainter& painter, const KoViewConverter &converter);
+        virtual void paint(QPainter& painter, const KisCoordinatesConverter* converter);
     private:
         struct Private;
         Private* const d;

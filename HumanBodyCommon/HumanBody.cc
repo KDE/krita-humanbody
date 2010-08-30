@@ -146,7 +146,7 @@ void HumanBody::translate( const QPointF& translate)
     }
 }
 
-void HumanBody::paint(QPainter& painter, const KoViewConverter &converter)
+void HumanBody::paint(QPainter& painter, const KisCoordinatesConverter* converter)
 {
     foreach( HumanBodyNode* node, d->nodes.values())
     {

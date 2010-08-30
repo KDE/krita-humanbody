@@ -36,9 +36,9 @@ HumanBodyDecoration::~HumanBodyDecoration()
     delete d;
 }
 
-void HumanBodyDecoration::drawDecoration(QPainter& gc, const QPoint & documentOffset, const QRect& area, const KoViewConverter &converter)
+void HumanBodyDecoration::drawDecoration(QPainter& gc, const QRectF& updateArea, const KisCoordinatesConverter* converter)
 {
-    Q_UNUSED(area);
+    Q_UNUSED(updateArea);
     d->humanBody->paint(gc, converter);
 }
 

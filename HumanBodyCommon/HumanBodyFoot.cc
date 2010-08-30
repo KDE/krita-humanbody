@@ -19,7 +19,7 @@
 
 #include <QPainter>
 
-#include <KoViewConverter.h>
+#include <kis_coordinates_converter.h>
 
 #include "HumanBody.h"
 #include "HumanBodyNode.h"
@@ -39,12 +39,12 @@ HumanBodyFoot::~HumanBodyFoot()
     delete d;
 }
 
-void HumanBodyFoot::paint(QPainter& _painter, const KoViewConverter &_converter)
+void HumanBodyFoot::paint(QPainter& _painter, const KisCoordinatesConverter* _converter)
 {
     QPointF p1 = node1()->position();
     QPointF p2 = node2()->position();
     double footSize = norm2(p2 - p1) - humanBody()->parameters()->articulationSize() * 0.5;
-    _painter.translate( _converter.documentToView( p1 ) );
+    _painter.translate( _converter->documentToWidget( p1 ) );
     double rot = angle(p1, p2) * 180 / M_PI - 90;
     if( (rot < 180 and rot > 0) or (rot > -270 and rot < -180  ) )
     {
@@ -54,14 +54,14 @@ void HumanBodyFoot::paint(QPainter& _painter, const KoViewConverter &_converter)
         _painter.rotate( rot );
     }
     QPolygonF polygon;
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF( - humanBody()->parameters()->articulationSize() * 0.5,
                                   humanBody()->parameters()->articulationSize() * 0.5 ) ) );
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF( - humanBody()->parameters()->articulationSize() * 0.5, footSize ) ) );
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF(   0, footSize ) ) );
-    polygon.push_back( _converter.documentToView(
+    polygon.push_back( _converter->documentToWidget(
                        QPointF(   humanBody()->parameters()->articulationSize() * 0.5,
                                   humanBody()->parameters()->articulationSize() * 0.5 ) ) );
     _painter.drawPolygon( polygon );

@@ -23,6 +23,7 @@
 
 #include "HumanBodyNode.h"
 #include "Utils.h"
+#include <kis_coordinates_converter.h>
 
 struct HumanBodyLink::Private {
     HumanBodyNode* node1;
@@ -58,11 +59,11 @@ void HumanBodyLink::setVisible(bool v)
     d->visible = v;
 }
 
-void HumanBodyLink::paint(QPainter& painter, const KoViewConverter &converter)
+void HumanBodyLink::paint(QPainter& painter, const KisCoordinatesConverter* converter)
 {
     if(d->visible)
     {
-        painter.drawLine( converter.documentToView( d->node1->position() ), converter.documentToView( d->node2->position() ) );
+        painter.drawLine( converter->documentToWidget( d->node1->position() ), converter->documentToWidget( d->node2->position() ) );
     }
 }
 
