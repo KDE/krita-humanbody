@@ -1,6 +1,6 @@
 Name: Human Body
-Version: 0.8.82
-KritaVersion: 2.1.8x
+Version: 0.9.0
+KritaVersion: 2.3.x
 ShortDescription: Display a human body guide on the canvas
 Screenshots: screenshots/HumanBody1.jpg
 LongDescription:
